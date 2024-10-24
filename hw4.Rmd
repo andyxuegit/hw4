@@ -9,6 +9,7 @@ output: html_document
 library(readr)
 library(sf)
 library(dplyr)
+library(tmap)
 gii_data_2019 <- read_csv("C:\\Users\\yuton\\OneDrive - University College London\\桌面\\GIS\\hw4\\hdr-data2019.csv")
 str(gii_data_2019)
 gii_data_2010 <- read_csv("C:\\Users\\yuton\\OneDrive - University College London\\桌面\\GIS\\hw4\\hdr-data 2010.csv")
@@ -22,5 +23,12 @@ gii_combined <- gii_combined %>%
 str(gii_combined)
 world_with_gii <- world_data %>%
   left_join(gii_combined, by = c("COUNTRY" = "country"))
+tm_shape(world_with_gii) + 
+  tm_polygons("gii_diff", 
+              title = "GII Difference (2010-2019)", 
+              palette = "RdYlBu",  # 调色板可以选择你喜欢的
+              style = "pretty") + 
+  tm_layout(main.title = "Global Gender Inequality Index (GII) Difference",
+            legend.outside = TRUE)
 ```
 

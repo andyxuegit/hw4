@@ -1,0 +1,26 @@
+---
+title: "hw4"
+author: "ax"
+date: "2024-10-24"
+output: html_document
+---
+
+```{r}
+library(readr)
+library(sf)
+library(dplyr)
+gii_data_2019 <- read_csv("C:\\Users\\yuton\\OneDrive - University College London\\桌面\\GIS\\hw4\\hdr-data2019.csv")
+str(gii_data_2019)
+gii_data_2010 <- read_csv("C:\\Users\\yuton\\OneDrive - University College London\\桌面\\GIS\\hw4\\hdr-data 2010.csv")
+str(gii_data_2010)
+world_data <- st_read("C:\\Users\\yuton\\OneDrive - University College London\\桌面\\GIS\\hw4\\World_Countries_(Generalized)_9029012925078512962.geojson")
+gii_combined <- gii_data_2010 %>%
+  select(country, gii_2010 = value) %>%
+  left_join(gii_data_2019 %>% select(country, gii_2019 = value), by = "country")  
+gii_combined <- gii_combined %>%
+  mutate(gii_diff = gii_2019 - gii_2010)
+str(gii_combined)
+world_with_gii <- world_data %>%
+  left_join(gii_combined, by = c("COUNTRY" = "country"))
+```
+

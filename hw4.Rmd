@@ -26,7 +26,7 @@ world_with_gii <- world_data %>%
 tm_shape(world_with_gii) + 
   tm_polygons("gii_diff", 
               title = "GII Difference (2010-2019)", 
-              palette = "RdYlBu",  # 调色板可以选择你喜欢的
+              palette = "RdYlBu",  
               style = "pretty") + 
   tm_layout(main.title = "Global Gender Inequality Index (GII) Difference",
             legend.outside = TRUE)
